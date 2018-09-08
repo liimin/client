@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Vant-demo
 Vant 示例页面汇总。
 
@@ -22,3 +23,7 @@ npm run build
 npm run lint
 ```
 
+=======
+# client
+client
+>>>>>>> a5f89d4e968ab6ec150a63b5c472fdc02877349c
