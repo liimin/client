@@ -2,89 +2,39 @@
   <div class="search">
     <div class="search-search">
       <!-- 当点击确定按钮时，触发submit事件 -->
-      <van-search v-model="value" placeholder="请输入搜索关键词" show-action @search="onSearch">
+      <van-search v-model="value" placeholder="请输入搜索关键词" show-action @search="onSearch" @focus="handleSearchFocus">
         <div slot="action" @click="onSearch">搜索</div>
       </van-search>
     </div>
+    <lm-search-hot-keys 
+          :hotKeyVisible="hotKeyVisible"
+          :history="history"
+          :hotSearch="hotSearch"
+          @onSelectHotKeyChanged="handleSelectHotKeyChanged"
+          @onSelectHotKey="handleSelectHotKey"
+          ></lm-search-hot-keys>
     <lm-search-bar></lm-search-bar>
-    <div class="search-hotkey" v-show="showKeys">
-      <p>热门搜索</p>
-      <ul class="search-hotkey-list">
-      </ul>
-    </div>
   </div>
 </template>
 <script>
 import LmSearchBar from "./SearchBar";
+import LmSearchHotKeys from "./HotKeys";
+import { mapGetters,mapActions} from "vuex";
 export default {
   name: "LmSearch",
   components: {
-    LmSearchBar
+    LmSearchBar,
+    LmSearchHotKeys
   },
   data() {
     return {
       value: "",
-      showKeys: false,
+      hotKeyVisible: false,
       selected: "1",
-      // 默认数据
-      defaultResult: [
-        "Apple",
-        "Banana",
-        "Orange",
-        "Durian",
-        "Lemon",
-        "Peach",
-        "Cherry",
-        "Berry",
-        "Core",
-        "Fig",
-        "Haw",
-        "Melon",
-        "Plum",
-        "123",
-        "Peanut",
-        "Other"
-      ],
-      slots: [
-        {
-          flex: 1,
-          values: [
-            "2015-01",
-            "2015-02",
-            "2015-03",
-            "2015-04",
-            "2015-05",
-            "2015-06"
-          ],
-          className: "slot1",
-          textAlign: "right"
-        },
-        {
-          divider: true,
-          content: "-",
-          className: "slot2"
-        },
-        {
-          flex: 1,
-          values: [
-            "2015-01",
-            "2015-02",
-            "2015-03",
-            "2015-04",
-            "2015-05",
-            "2015-06"
-          ],
-          className: "slot3",
-          textAlign: "left"
-        }
-      ]
     };
   },
-  created() {
-    // debug
-    // this.getSongs()
-  },
   computed: {
+    ...mapGetters(['history','hotSearch']),
     // onchange
     filterResult() {
       return this.defaultResult.filter(value =>
@@ -93,18 +43,40 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['AddHistory']),
     // 点击确定按钮时，弹出打印search的值
     onSearch(){
-      
+      if(!this.value){return}
+      this.AddHistory({'id':'','title':this.value})
+      this.hotKeyVisible=false
+    },
+    handleSearchFocus(){
+      this.hotKeyVisible=true
+    },
+    handleSelectHotKeyChanged(){
+      this.hotKeyVisible=false
+    },
+    handleSelectHotKey(item){
+      console.log(item)
+       this.hotKeyVisible=false
     }
   }
 };
 </script>
 <style lang="less">
+.search {
+  .van-field__control{
+    line-height:24px;
+  }
+  .van-search{
+    background-color: rgba(242, 242, 242,.5) !important;
+    border-radius: 4px;
+  }
+}
 // @import "~@/assets/style/variable.less";
 </style>
 <style rel="stylesheet/less" lang="less" scoped>
-@import '../../../../public/style/style.less';
+@import '../../../../public/style/variable.less';
 .search {
   &-search {
     background-color: @color-primary;

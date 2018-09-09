@@ -18,6 +18,11 @@ const routes = [
     path: '/temple/list',
     name: 'TempleList',
     component: _import('temple/list')
+  },
+  {
+    path: '/temple/detail',
+    name: 'TempleDetail',
+    component: _import('temple/detail')
   }
 ]
 export default new Router({

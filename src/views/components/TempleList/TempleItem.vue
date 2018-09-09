@@ -2,13 +2,13 @@
   <div>
     <van-checkbox-group class="card-goods" v-model="checkedGoods">
         <van-card
-          v-for="item in templeList"
+          v-for="(item,key) in templeList"
           :title="item.title"
           :desc="item.desc"
           :num="item.num"
           :price="formatPrice(item.price)"
           :thumb="item.thumb"
-          :key="item"
+          :key="key"
         >
           <div slot="footer">
             <van-button size="mini">按钮</van-button>
@@ -45,6 +45,9 @@ export default {
   },
 
   computed: {
+    keys(){
+      return Math.random()+''
+    },
     submitBarText() {
       const count = this.checkedGoods.length;
       return '结算' + (count ? `(${count})` : '');

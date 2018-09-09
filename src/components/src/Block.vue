@@ -1,0 +1,27 @@
+
+<template>
+  <div class="van-doc-block">
+    <slot />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'van-doc-block'
+}
+</script>
+
+<style lang="postcss">
+@import '../../../public/style/variable.less';
+.van-doc-block {
+  display: flex;
+  margin-bottom: 20px;
+  .highlight {
+    flex: 1;
+    box-sizing: border-box;
+    pre {
+      word-break: break-all;
+    }
+  }
+}
+</style>
