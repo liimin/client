@@ -3,8 +3,10 @@ import Vue from 'vue';
 import App from './App.vue';
 import router  from '@/router';
 import ui from './ui';
-import '../public/style/style.less'
+import '@/assets/style/style.less'
+import '@/assets/style/css.less'
 import store from "@/store";
+import 'normalize.css/normalize.css'
 // window.eventBus=new Vue();
 for (const key in ui) {
   Vue.use(ui[key])

@@ -1,5 +1,6 @@
  
  <template>
+  <div>
     <van-popup v-model="show" position="bottom" class="van-sku-container" :close-on-click-overlay="closeOnClickOverlay" :get-container="getContainer">
         <!-- sku-header -->
         <slot name="sku-header" :sku-event-bus="skuEventBus" :selected-sku="selectedSku" :selected-sku-comb="selectedSkuComb">
@@ -17,14 +18,18 @@
             <slot name="sku-body-top" :selected-sku="selectedSku" :sku-event-bus="skuEventBus" />
             <!-- sku-group -->
             <slot name="sku-group" :selected-sku="selectedSku" :sku-event-bus="skuEventBus">
-                <div v-if="hasSku" class="van-sku-group-container van-hairline--bottom">
+                <div v-if="hasSku" class="van-sku-group-container">
                     <sku-row v-for="(skuTreeItem, index) in skuTree" :key="index" :sku-row="skuTreeItem">
                         <sku-row-item v-for="(skuValue, index) in skuTreeItem.v" :key="index" :sku-key-str="skuTreeItem.k_s" :sku-value="skuValue" :sku-event-bus="skuEventBus" :selected-sku="selectedSku" :sku-list="sku.list" />
                     </sku-row>
                 </div>
             </slot>
             <!-- extra-sku-group -->
-            <slot name="extra-sku-group" :sku-event-bus="skuEventBus" />
+            <slot name="sku-choose-position" :sku-event-bus="skuEventBus" >
+                <van-cell-group>
+                   <van-cell title="选择供灯位置" is-link value="10-616"  @click="showPosition=!showPosition"/>
+                </van-cell-group>
+            </slot>
             <!-- sku-stepper -->
             <slot name="sku-stepper" :sku-event-bus="skuEventBus" :selected-sku="selectedSku" :selected-sku-comb="selectedSkuComb" :selected-num="selectedNum">
                 <sku-stepper ref="skuStepper" :sku-event-bus="skuEventBus" :selected-sku="selectedSku" :selected-sku-comb="selectedSkuComb" :selected-num="selectedNum" :stepper-title="stepperTitle" :sku-stock-num="sku.stock_num" :quota="quota" :quota-used="quotaUsed" :disable-stepper-input="disableStepperInput" :hide-stock="hideStock" :custom-stepper-config="customStepperConfig" @change="$emit('stepper-change', $event)" />
@@ -39,6 +44,10 @@
             <sku-actions :sku-event-bus="skuEventBus" :buy-text="buyText" :show-add-cart-btn="showAddCartBtn" />
         </slot>
     </van-popup>
+    <van-popup v-model="showPosition" position="right"   class="van-sku-container" :close-on-click-overlay="closeOnClickOverlay" :get-container="getContainer">
+      <sku-lamps></sku-lamps>
+    </van-popup>
+    </div>
 </template>
 
 <script>
@@ -50,7 +59,8 @@ import SkuRowItem from "./SkuRowItem";
 import SkuStepper from "./SkuStepper";
 import SkuActions from "./SkuAction";
 import skuMessages from "./SkuMessages";
-import {Popup,Toast} from 'vant';
+import SkuLamps from './SkuLamps'
+import {Popup,Toast,Cell, CellGroup} from 'vant';
 import {
   isAllSelected,
   isSkuChoosable,
@@ -63,12 +73,15 @@ export default {
   components: {
     [Popup.name]:Popup,
     [Toast.name]:Toast,
+    [Cell.name]:Cell,
+    [CellGroup.name]:CellGroup,
     SkuHeader,
     SkuRow,
     SkuRowItem,
     SkuStepper,
     SkuActions,
-    skuMessages
+    skuMessages,
+    SkuLamps
   },
   props: {
     sku: Object,
@@ -121,7 +134,8 @@ export default {
     return {
       selectedSku: {},
       selectedNum: 1,
-      show: this.value
+      show: this.value,
+      showPosition:false
     };
   },
   watch: {

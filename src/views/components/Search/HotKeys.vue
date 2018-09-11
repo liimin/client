@@ -80,7 +80,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/less" lang="less" scoped>
-@import '../../../../public/style/variable.less';
+@import '~@/assets/style/variable.less';
 @height:60%;
 .hotkey {
   height: @height;

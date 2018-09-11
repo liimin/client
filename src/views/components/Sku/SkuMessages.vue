@@ -1,22 +1,7 @@
 <template>
   <van-cell-group>
     <template v-for="(message, index) in messages">
-      <van-cell
-        v-if="message.type === 'image'"
-        :class="image-cell"
-        label="仅限一张"
-        :key="`${goodsId}-${index}`"
-        :required="message.required == '1'"
-        :title="message.name"
-      >
-        <van-uploader
-          v-model="messageValues[index].value"
-          :upload-img="messageConfig.uploadImg"
-          :max-size="messageConfig.uploadMaxSize"
-        />
-      </van-cell>
       <van-field
-        v-else
         v-model="messageValues[index].value"
         maxlength="200"
         :key="`${goodsId}-${index}`"
@@ -31,16 +16,10 @@
 
 <script>
 import { Field,Uploader,Cell, CellGroup  } from 'vant';
-import validateEmail from '@/utils/validate/email';
 import validateNumber from '@/utils/validate/number';
 const PLACEHOLDER = {
-  id_no: '输入身份证号码',
-  text: '输入文本',
-  tel: '输入数字',
-  email: '输入邮箱',
-  date: '点击选择日期',
-  time: '点击选择时间',
-  textarea: '点击填写段落文本'
+  name: '选填姓名',
+  tel: '选填手机号码',
 };
 export default {
   name: 'sku-messages',
@@ -118,10 +97,7 @@ export default {
         if (value === '') {
           // 必填字段的校验
           if (message.required == '1') { // eslint-disable-line
-            const textType = message.type === 'image'
-              ? '请上传'
-              : '请填写';
-            return textType + message.name;
+            return `请填写 ${message.name}`
           }
         } else {
           if (message.type === 'tel' && !validateNumber(value)) {
@@ -129,12 +105,6 @@ export default {
           }
           if (message.type === 'mobile' && !/^\d{6,20}$/.test(value)) {
             return '手机号长度为6-20位数字';
-          }
-          if (message.type === 'email' && !validateEmail(value)) {
-            return '请填写正确的邮箱';
-          }
-          if (message.type === 'id_no' && (value.length < 15 || value.length > 18)) {
-            return '请填写正确的身份证号码';
           }
         }
       }

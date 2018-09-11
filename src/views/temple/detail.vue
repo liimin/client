@@ -39,6 +39,7 @@
           reset-stepper-on-hide
           reset-selected-sku-on-hide
           disable-stepper-input
+          :stepperTitle="skuData.sku.stepper_title"
           :close-on-click-overlay="closeOnClickOverlay"
           :message-config="messageConfig"
           :custom-sku-validator="customSkuValidator"
@@ -51,6 +52,7 @@
 import skuData from './sku';
 import { NavBar, Swipe, SwipeItem,Row, Col,Sku} from "vant";
 import { LmSkuAction,LmSku } from "../components";
+import { CheckButton } from "@/components";
 export default {
   name: "TempleDetail",
   components: {
@@ -59,13 +61,15 @@ export default {
     [SwipeItem.name]: SwipeItem,
     [Sku.name]: Sku,
     LmSkuAction,
-    LmSku
+    LmSku,
+    CheckButton
     // DemoBlock,
     // DemoSection
   },
   data() {
      this.skuData = skuData;
     return {
+      is_agree:true,
       images: [
         "https://img.yzcdn.cn/public_files/2017/09/05/3bd347e44233a868c99cf0fe560232be.jpg",
         "https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg",

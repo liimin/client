@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../public/style/variable.less';
+@import '~@/assets/style/variable.less';
 .van-doc-container {
   overflow: hidden;
   box-sizing: border-box;

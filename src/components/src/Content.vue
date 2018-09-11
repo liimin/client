@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../public/style/variable.less';
+@import '~@/assets/style/variable.less';
 .van-doc-content {
   flex: 1;
   position: relative;

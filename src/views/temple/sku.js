@@ -6,118 +6,60 @@ export default {
     sku: {
       tree: [
         {
-          k: '颜色',
+          k: '选择供灯大小',
           k_id: '1',
           v: [
             {
-              id: '30349',
-              name: '天蓝色',
-              imgUrl:
-                'https://img.yzcdn.cn/upload_files/2017/02/21/FjKTOxjVgnUuPmHJRdunvYky9OHP.jpg!100x100.jpg'
+              id: 'B',
+              name: '大'
+            },
+            {
+              id: 'S',
+              name: '小'
             }
           ],
-          k_s: 's1',
+          k_s: 's2',
           count: 2
         },
         {
-          k: '尺寸',
+          k: '选择供灯时长',
           k_id: '2',
           v: [
             {
-              id: '1193',
-              name: '1'
+              id: 'H1',
+              name: '1小时'
             },
             {
-              id: '1194',
-              name: '2'
+              id: 'D1',
+              name: '1天'
+            },
+            {
+              id: 'M1',
+              name: '1个月'
+            },
+            {
+              id: 'Y1',
+              name: '1年'
+            },
+            {
+              id: 'L1',
+              name: '长明'
+            }
+            ,
+            {
+              id: 'E1',
+              name: '其他时长'
             }
           ],
           k_s: 's2',
           count: 2
         }
       ],
-      list: [
-        {
-          id: 2259,
-          price: 100,
-          discount: 100,
-          code: '',
-          s1: '1215',
-          s2: '1193',
-          s3: '0',
-          s4: '0',
-          s5: '0',
-          extend: null,
-          kdt_id: 55,
-          discount_price: 0,
-          stock_num: 110,
-          stock_mode: 0,
-          is_sell: null,
-          combin_sku: false,
-          goods_id: 946755
-        },
-        {
-          id: 2260,
-          price: 100,
-          discount: 100,
-          code: '',
-          s1: '1215',
-          s2: '1194',
-          s3: '0',
-          s4: '0',
-          s5: '0',
-          extend: null,
-          kdt_id: 55,
-          discount_price: 0,
-          stock_num: 0,
-          stock_mode: 0,
-          is_sell: null,
-          combin_sku: false,
-          goods_id: 946755
-        },
-        {
-          id: 2257,
-          price: 100,
-          discount: 100,
-          code: '',
-          s1: '30349',
-          s2: '1193',
-          s3: '0',
-          s4: '0',
-          s5: '0',
-          extend: null,
-          kdt_id: 55,
-          discount_price: 0,
-          stock_num: 111,
-          stock_mode: 0,
-          is_sell: null,
-          combin_sku: false,
-          goods_id: 946755
-        },
-        {
-          id: 2258,
-          price: 100,
-          discount: 100,
-          code: '',
-          s1: '30349',
-          s2: '1194',
-          s3: '0',
-          s4: '0',
-          s5: '0',
-          extend: null,
-          kdt_id: 55,
-          discount_price: 0,
-          stock_num: 6,
-          stock_mode: 0,
-          is_sell: null,
-          combin_sku: false,
-          goods_id: 946755
-        }
-      ],
       price: '1.00',
       stock_num: 227,
       collection_id: 2261,
       collection_price: 0,
+      stepper_title:'供灯数量',
       none_sku: false,
       sold_num: 0,
       min_price: '1.00',
@@ -128,23 +70,10 @@ export default {
           disable_multiple: false,
           disable: false,
           multiple: '0',
-          name: '留言1',
+          name: '祈福人姓名',
           disable_required: false,
           disable_edit_name: false,
-          type: 'text',
-          disable_delete: false,
-          disable_type: false,
-          required: '1'
-        },
-        {
-          datetime: '0',
-          disable_multiple: false,
-          disable: false,
-          multiple: 0,
-          name: '留言2',
-          disable_required: false,
-          disable_edit_name: false,
-          type: 'id_no',
+          type: 'name',
           disable_delete: false,
           disable_type: false,
           required: 0
@@ -154,10 +83,10 @@ export default {
           disable_multiple: false,
           disable: false,
           multiple: 0,
-          name: '留言3',
+          name: '收福人姓名',
           disable_required: false,
           disable_edit_name: false,
-          type: 'image',
+          type: 'name',
           disable_delete: false,
           disable_type: false,
           required: 0
@@ -166,20 +95,7 @@ export default {
           datetime: '0',
           disable_multiple: false,
           disable: false,
-          multiple: 1,
-          name: '留言4',
-          disable_required: false,
-          disable_edit_name: false,
-          type: 'text',
-          disable_delete: false,
-          disable_type: false,
-          required: 0
-        },
-        {
-          datetime: '0',
-          disable_multiple: false,
-          disable: false,
-          name: '数字',
+          name: '收福人号码',
           multiple: 0,
           disable_required: false,
           disable_edit_name: false,
@@ -187,65 +103,13 @@ export default {
           disable_delete: false,
           disable_type: false,
           required: 0
-        },
-        {
-          datetime: '0',
-          disable_multiple: false,
-          disable: false,
-          name: '邮件',
-          multiple: 0,
-          disable_required: false,
-          disable_edit_name: false,
-          type: 'email',
-          disable_delete: false,
-          disable_type: false,
-          required: 0
-        },
-        {
-          datetime: '0',
-          disable_multiple: false,
-          disable: false,
-          name: '日期',
-          multiple: 0,
-          disable_required: false,
-          disable_edit_name: false,
-          type: 'date',
-          disable_delete: false,
-          disable_type: false,
-          required: 0
-        },
-        {
-          datetime: '0',
-          disable_multiple: false,
-          disable: false,
-          name: '时间含日期',
-          multiple: 0,
-          disable_required: false,
-          disable_edit_name: false,
-          type: 'time',
-          disable_delete: false,
-          disable_type: false,
-          required: 0
-        },
-        {
-          datetime: '0',
-          disable_multiple: false,
-          disable: false,
-          name: '时间',
-          multiple: 0,
-          disable_required: false,
-          disable_edit_name: false,
-          type: 'time',
-          disable_delete: false,
-          disable_type: false,
-          required: 0
         }
       ],
-      hide_stock: false
+      hide_stock: true
     },
     goods_id: '946755',
     alias: '2oml0r0n5vytj',
-    quota: 15,
+    quota: 0,  //限购
     is_virtual: '0',
     quota_used: 0,
     goods_info: {

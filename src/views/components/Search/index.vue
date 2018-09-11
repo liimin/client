@@ -76,7 +76,7 @@ export default {
 // @import "~@/assets/style/variable.less";
 </style>
 <style rel="stylesheet/less" lang="less" scoped>
-@import '../../../../public/style/variable.less';
+@import '~@/assets/style/variable.less';
 .search {
   &-search {
     background-color: @color-primary;

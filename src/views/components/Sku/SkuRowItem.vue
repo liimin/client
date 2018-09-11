@@ -27,10 +27,11 @@ export default {
       return this.skuValue.id === this.selectedSku[this.skuKeyStr];
     },
     isChoosable() {
-      return isSkuChoosable(this.skuList, this.selectedSku, {
-        key: this.skuKeyStr,
-        valueId: this.skuValue.id
-      });
+      // return isSkuChoosable(this.skuList, this.selectedSku, {
+      //   key: this.skuKeyStr,
+      //   valueId: this.skuValue.id
+      // });
+      return true
     }
   },
   methods: {

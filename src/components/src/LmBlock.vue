@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../public/style/variable.less';
+@import '~@/assets/style/variable.less';
 .van-doc-demo-block {
   &__title {
     margin: 0;
