@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style lang="postcss">
+<style lang="less">
 @import '~@/assets/style/variable.less';
 .van-doc-block {
   display: flex;

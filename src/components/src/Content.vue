@@ -24,12 +24,12 @@ export default {
 .van-doc-content {
   flex: 1;
   position: relative;
-  padding: 0 0 75px;
+  padding: 0 0 4.6875rem;
   a {
     color: @van-doc-blue;
   }
   section {
-    padding: 10px @van-doc-padding;
+    padding: .625rem @van-doc-padding;
     overflow: hidden;
     > h1,
     > h2,
@@ -39,122 +39,122 @@ export default {
     > h6 {
       line-height: 1.5;
       font-weight: normal;
-      margin: 20px 0 10px;
+      margin: 1.25rem 0 .625rem;
       color: @van-doc-black;
     }
     > h1 {
-      font-size: 36px;
+      font-size: 2.25rem;
     }
     > h2 {
-      font-size: 30px;
-      margin-bottom: 25px;
+      font-size: 1.875rem;
+      margin-bottom: 1.5625rem;
     }
     > h3 {
-      font-size: 22px;
-      margin-top: 45px;
+      font-size: 1.375rem;
+      margin-top: 2.8125rem;
     }
     > h2 + h3 {
-      margin-top: 25px;
+      margin-top: 1.5625rem;
     }
     > h4 {
-      font-size: 16px;
-      margin-bottom: 15px;
+      font-size: 1rem;
+      margin-bottom: .9375rem;
     }
     > h5 {
-      font-size: 14px
+      font-size: .875rem
     }
     > h6 {
-      font-size: 14px;
+      font-size: .875rem;
       color: @van-doc-dark-grey;
     }
     > p {
-      margin: 15px 0;
-      font-size: 14px;
-      line-height: 26px;
+      margin: .9375rem 0;
+      font-size: .875rem;
+      line-height: 1.625rem;
       color: @van-doc-text-color;
     }
     > ul,
     > ol {
-      padding: 15px 0;
+      padding: .9375rem 0;
       background-color: #f5f7fa;
     }
     > ul li,
     > ol li {
       color: @van-doc-text-color;
-      font-size: 14px;
-      line-height: 22px;
-      margin: 5px 0 5px 20px;
-      padding-left: 15px;
+      font-size: .875rem;
+      line-height: 1.375rem;
+      margin: .3125rem 0 .3125rem 1.25rem;
+      padding-left: .9375rem;
       position: relative;
       &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
-        width: 6px;
-        height: 6px;
-        margin-top: 8px;
+        width: .375rem;
+        height: .375rem;
+        margin-top: .5rem;
         border-radius: 50%;
         box-sizing: border-box;
-        border: 1px solid @van-doc-dark-grey;
+        border: .0625rem solid @van-doc-dark-grey;
       }
       li {
         margin-left: 0;
       }
     }
     > hr {
-      border: 0px none;
-      border-top: 1px solid #eee;
+      border: 0rem none;
+      border-top: .0625rem solid #eee;
     }
     p > code,
     li > code,
     table code {
-      margin: 2px;
-      padding: 2px 7px;
+      margin: .125rem;
+      padding: .125rem .4375rem;
       display: inline;
     }
   }
   blockquote {
-    padding: 16px;
-    margin: 20px 0;
-    font-size: 14px;
-    border-radius: 4px;
+    padding: 1rem;
+    margin: 1.25rem 0;
+    font-size: .875rem;
+    border-radius: .25rem;
     background-color: #ecf9ff;
     color: rgba(52, 73, 94, .8);
-    border-left: 5px solid #50bfff;
+    border-left: .3125rem solid #50bfff;
   }
   table {
     width: 100%;
-    font-size: 13px;
+    font-size: .8125rem;
     line-height: 1.5;
-    margin-bottom: 45px;
+    margin-bottom: 2.8125rem;
     background-color: #fff;
     border-collapse: collapse;
     color: @van-doc-text-color;
     th {
-      padding: 8px 10px;
+      padding: .5rem .625rem;
       text-align: left;
       font-weight: normal;
       background-color: #f5f7fa;
-      border: 1px solid @van-doc-border-color;
+      border: .0625rem solid @van-doc-border-color;
       &:first-child {
-        padding-left: 10px;
+        padding-left: .625rem;
       }
     }
     td {
-      padding: 8px;
-      border: 1px solid @van-doc-border-color;
+      padding: .5rem;
+      border: .0625rem solid @van-doc-border-color;
     }
     code {
-      font-size: 13px;
-      padding: 0 8px;
+      font-size: .8125rem;
+      padding: 0 .5rem;
       font-family: inherit;
       word-break: keep-all;
     }
   }
   &--changelog {
     section {
-      padding-bottom: 30px;
+      padding-bottom: 1.875rem;
       > h3 {
         + p {
           margin: 0;
@@ -164,11 +164,11 @@ export default {
         }
         a {
           color: inherit;
-          font-size: 24px;
+          font-size: 1.5rem;
           -webkit-font-smoothing: auto;
         }
         &:not(:first-of-type) {
-          margin-top: 50px;
+          margin-top: 3.125rem;
         }
       }
     }

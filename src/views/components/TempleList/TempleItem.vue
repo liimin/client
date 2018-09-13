@@ -71,7 +71,7 @@ export default {
 
 <style lang="less">
 .card-goods {
-  padding: 10px 0;
+  padding: .2rem 0;
   background-color: #fff;
   &__item {
     position: relative;
@@ -83,10 +83,10 @@ export default {
     }
     .van-checkbox__icon {
       top: 50%;
-      left: 10px;
+      left: .2rem;
       z-index: 1;
       position: absolute;
-      margin-top: -10px;
+      margin-top: -2rem;
     }
     .van-card__price {
       color: #f44;

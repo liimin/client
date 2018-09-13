@@ -2,8 +2,16 @@
     <nav class="controller">
         <button v-if="option.arrowsType" class="prev-btn" :class="{moving:option.arrowsType === 'animate'}" @click="changePage(prevIndex)"></button>
         <ul v-if="option.navbar">
-            <li v-for="index in pageNum" @click="changePage(index)" :class="{current:option.highlight && index === currentPage}" :key="'controller-'+index" :data-index="index" class="controller-item"></li>
+            <!-- <li data-index="1" class="controller-item"  v-show="currentPage>5">1</li> -->
+             <!-- <li class="controller-item"  v-show="efont">...</li> -->
+            <li v-for="index in indexs" @click="changePage(index)" :class="{current:option.highlight && index === currentPage}" :key="'controller-'+(index || Math.random())" :data-index="index" class="controller-item">
+                <span v-if="index">{{index}}</span>
+               <span v-else class="dot">...</span>
+            </li>
+            <!-- <li class="controller-item"  v-show="efont&&currentPage<pageNum-4">...</li> -->
+             <!-- <li class="controller-item"  v-show="currentPage<pageNum-1">{{pageNum}}</li> -->
         </ul>
+           
         <button v-if="option.arrowsType" class="next-btn" :class="{moving:option.arrowsType === 'animate'}" @click="changePage(nextIndex)"></button>
     </nav>
 </template>
@@ -30,6 +38,10 @@ export default {
     }
   },
   computed: {
+     efont: function() { 
+        if (this.pageNum <= 7) return false; 
+        return this.currentPage > 5 
+      },
     nextIndex () {
       if (this.currentPage === this.pageNum) {
         if(this.option.loop){
@@ -51,6 +63,47 @@ export default {
       } else {
         return this.currentPage - 1;
       }
+    },
+    indexs: function() { 
+    //     var left = 1, 
+    //     right = this.pageNum, 
+    // ar = []; 
+    // if (this.pageNum >= 7) { 
+    //         if (this.currentPage > 5 && this.currentPage < this.pageNum - 4) { 
+    //         left = Number(this.currentPage) - 3; 
+    //         right = Number(this.currentPage) + 3; 
+    //       } else { 
+    //         if (this.currentPage <= 5) { 
+    //           left = 1; 
+    //           right = 7; 
+    //         } else { 
+    //           right = this.pageNum; 
+  
+    //           left = this.pageNum - 6; 
+    //         } 
+    //       } 
+    //     } 
+    //     while (left <= right) { 
+    //       ar.push(left); 
+    //       left++; 
+    //     } 
+    //     return ar; 
+    //   }
+    let pageNum = this.pageNum; // 总页数
+             let index = this.currentPage; // 当前页
+             let arr = [];
+             if (pageNum <= 6) {
+                 for (let i = 1; i <= pageNum; i++) {
+                     arr.push(i)
+                }
+                 return arr
+             }
+             // 对页码显示进行处理，动态展示
+            if (index <= 3) return [1, 2, 3, 4, 0, pageNum];
+             if (index >= pageNum - 1) return [1, 0, pageNum - 3, pageNum - 2, pageNum - 1, pageNum];
+             if (index === 4) return [1, 2, 3, 4, 5, 0, pageNum];
+             if (index === pageNum - 2) return [1, 0, pageNum - 4, pageNum - 3, pageNum - 2, pageNum - 1, pageNum];
+             return [1, 0, index - 2,index - 1, index, index + 1, index + 2, 0, pageNum];
     }
   },
   created () {
@@ -113,10 +166,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@import url('~@/assets/style/variable.less');
 .controller {
     position: absolute;
-    right: 20px;
+    right: 0.4rem;
     top: 50%;
     z-index: 99;
 }
@@ -128,40 +182,48 @@ export default {
 }
 .controller-item {
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 0.4rem;
+    height: 0.4rem;
     border-radius: 50%;
-    margin-top: 10px;
-    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: 0.2rem;
+    background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease 0s;
+    text-align: center;
+    line-height: 0.4rem;
+    color: #fff;
+    span.dot{
+          float: left;
+    margin: -4px 0 0 5px;
+    }
 }
 .controller-item:hover {
     background-color: rgba(255, 255, 255, 0.7);
 }
 .controller-item.current {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, .8);
+    color:@color-primary;
 }
 .prev-btn,.next-btn {
   cursor: pointer;
   display: block;
   text-align: center;
-  width: 20px;
-  height: 20px;
+  width: 0.4rem;
+  height: 0.4rem;
   position: fixed;
   left: 50%;
-  margin-left: -10px;
-  border: 4px solid #fff;
+  margin-left: -0.2rem;
+  border: 0.08rem solid #fff;
   background-color: transparent;
   outline: none;
 }
 .prev-btn {
-  top: 80px;
+  top: 0.16rem;
   transform: rotate(-45deg);
   border-bottom-color: transparent;
   border-left-color: transparent;
 }
 .next-btn {
-  bottom: 80px;
+  bottom: 0.16rem;
   transform: rotate(45deg);
   border-top-color: transparent;
   border-left-color: transparent;
@@ -177,13 +239,13 @@ export default {
     transform: translate3d(0,0,0) rotate(45deg);
   }
   25% {
-    transform: translate3d(0,6px,0) rotate(45deg);
+    transform: translate3d(0,0.12rem,0) rotate(45deg);
   }
   50% {
     transform: translate3d(0,0,0) rotate(45deg);
   }
   75% {
-    transform: translate3d(0,-6px,0) rotate(45deg);
+    transform: translate3d(0,-0.12rem,0) rotate(45deg);
   }
   100% {
     transform: translate3d(0,0,0) rotate(45deg);
@@ -194,13 +256,13 @@ export default {
     transform: translate3d(0,0,0) rotate(-45deg);
   }
   25% {
-    transform: translate3d(0,-6px,0) rotate(-45deg);
+    transform: translate3d(0,-0.12rem,0) rotate(-45deg);
   }
   50% {
     transform: translate3d(0,0,0) rotate(-45deg);
   }
   75% {
-    transform: translate3d(0,6px,0) rotate(-45deg);
+    transform: translate3d(0,0.12rem,0) rotate(-45deg);
   }
   100% {
     transform: translate3d(0,0,0) rotate(-45deg);

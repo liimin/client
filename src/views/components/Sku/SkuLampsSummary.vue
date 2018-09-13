@@ -1,5 +1,5 @@
 <template>
-    <div class="sku-lamps-summary  m-md" flex="box:mean">
+    <div class="sku-lamps-summary" flex="box:mean">
         <sku-lamps-summary-item v-for="item in group" :key="item.text" :text="item.text" :count="item.count" :src="item.src" />
     </div>
 </template>
@@ -13,6 +13,9 @@
         },
         components:{
            SkuLampsSummaryItem
+        },
+        mounted () {
+            this.$emit('created')
         }
     }
 </script>

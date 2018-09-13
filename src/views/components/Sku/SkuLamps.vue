@@ -1,19 +1,17 @@
 <template>
     <div class="sku-lamps">
-        <div class="sku-lamps-header" ref="skuLampsHeader">
-            <sku-lamps-summary :group="summaryGroup"></sku-lamps-summary>
+        <div class="sku-lamps-header" ref="skuLampsHeader"  flex="box:mean">
+            <sku-lamps-summary :group="summaryGroup" @created="handleSummaryCreated"></sku-lamps-summary>
         </div>
         <div class="sku-lamps-body">
-            <van-tabs type="card" ref="skuLampsFloor" @change="handleTabChange">
+            <!-- <van-tabs type="card" ref="skuLampsFloor" @change="handleTabChange">
                 <van-tab title="推荐层数">
                    <sku-lamps-floor :group="floorGroup"></sku-lamps-floor>
                 </van-tab>
                 <van-tab title="全部灯位" />
-            </van-tabs>
+            </van-tabs> -->
             <!-- <sku-lamp-container :lampGroup="lampGroup" :lineGroup="lineGroup" /> -->
-            <div>
-              <sku-lamp-wrapper :nHeight="lampSeatHeight"></sku-lamp-wrapper>
-            </div>
+              <sku-lamp-wrapper :lampGroup="lampGroup"></sku-lamp-wrapper>
         </div>
     </div>
 </template>
@@ -63,35 +61,51 @@ export default {
   computed: {
     
   },
-  mounted () {
+  beforeMount () {
     let obj=[]
-      for (let index = 1; index < 21; index++) {
-          this.floorGroup.push({id:index,text:index})
-          obj=[]
-          for (let idx = 1; idx < 21; idx++) {
-            obj.push({text:`${index}-${idx}`,src:require("@/assets/images/lamp-off.png")})
-          }
-          this.lampGroup[index]=obj
-          this.lineGroup.push({isBig:false,text:index})
-      }
-      this.lampSeatHeight=this.getLampSeatHeight()
+    for (let index = 1; index < 21; index++) {
+        this.floorGroup.push({id:index,text:index})
+        obj=[]
+        for (let idx = 1; idx < 21; idx++) {
+          obj.push({text:`${index}-${idx}`,src:require("@/assets/images/lamp-off.png")})
+        }
+        this.lampGroup[index]=obj
+        this.lineGroup.push({isBig:false,text:index})
+    }
   },
   methods:{
-    getLampSeatHeight(isMin){
-      const clientHeight=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-      const headerHeight=this.$refs.skuLampsHeader.offsetHeight
-      const floorHeight=this.$refs.skuLampsFloor.$el.offsetWidth
-      if(isMin){
-         return +clientHeight - +headerHeight
-      }
-      return +clientHeight - +headerHeight- +floorHeight
-    },
+    // getLampSeatHeight(){
+    //   const clientHeight=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    //   const headerHeight=this.$refs.skuLampsHeader.style.height
+    //         console.log(headerHeight);
+    //   // const floorHeight=this.$refs.skuLampsFloor.$el.clientHeight  
+    //   return clientHeight - 126
+    // },
     handleTabChange(index){
       this.lampSeatHeight=this.getLampSeatHeight(index)
+    },
+    handleSummaryCreated(){
+      const headerHeight=this.$refs.skuLampsHeader.offsetHeight
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
+@import url('~@/assets/style/variable.less');
+.sku-lamps{
+  height: 100%;
+  &-header,&-body{
+    box-shadow: 0 4px 18px 0 #0e0e0e;
+    border-radius: 8px;
+  }
+  &-body{
+    height: 80%;
+    background-color: #fff;
+  }
+  &-header{
+    height: 20%;
+    margin-bottom: .2rem;
+  }
+}
 </style>

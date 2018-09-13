@@ -44,7 +44,7 @@
             <sku-actions :sku-event-bus="skuEventBus" :buy-text="buyText" :show-add-cart-btn="showAddCartBtn" />
         </slot>
     </van-popup>
-    <van-popup v-model="showPosition" position="right"   class="van-sku-container" :close-on-click-overlay="closeOnClickOverlay" :get-container="getContainer">
+    <van-popup v-model="showPosition" position="right"   class="van-sku-container-right" :close-on-click-overlay="closeOnClickOverlay" :get-container="getContainer">
       <sku-lamps></sku-lamps>
     </van-popup>
     </div>
@@ -336,10 +336,24 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-    .van-sku-container{
-        font-size: 14px;
-        background: #fff;
+    @import url('~@/assets/style/variable.less');
+    .van-sku-container,.van-sku-container-right{
+        font-size: 0.18rem;
+        background:#fff;
         overflow-y: visible;
         width: calc( 100% + 1px ) !important;
     }
+    .van-sku-container-right{
+      height: 90%;
+      background:@color-primary;
+    }
+    // .van-popup--right{
+    //     // top: auto;
+    //     /* right: auto; */
+    //     // bottom: 0;
+    //     // left: 50%;
+    //     -webkit-transform: translate3d(0,-50%,0);
+    //     transform: translate3d(-50%,0,0);
+    //     transition: all .2s ease-in-out;
+    // }
 </style>

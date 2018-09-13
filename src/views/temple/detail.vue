@@ -52,7 +52,7 @@
 import skuData from './sku';
 import { NavBar, Swipe, SwipeItem,Row, Col,Sku} from "vant";
 import { LmSkuAction,LmSku } from "../components";
-import { CheckButton } from "@/components";
+// import { CheckButton } from "@/components";
 export default {
   name: "TempleDetail",
   components: {
@@ -62,7 +62,7 @@ export default {
     [Sku.name]: Sku,
     LmSkuAction,
     LmSku,
-    CheckButton
+    // CheckButton
     // DemoBlock,
     // DemoSection
   },

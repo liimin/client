@@ -1,10 +1,8 @@
 <template>
-<div>
     <li class="row-item mr-lg row-item-big">
         <img :src="src" alt="">
         <p>{{text}}</p>
     </li>
-    </div>
 </template>
 
 <script>

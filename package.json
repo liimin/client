@@ -22,6 +22,11 @@
     "babel-plugin-import": "^1.8.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
+    "lib-flexible": "^0.3.2",
+    "postcss-loader": "^3.0.0",
+    "postcss-px2rem": "^0.3.0",
+    "vue-awesome-swiper": "^3.1.3",
+    "vue-smart-pagination": "^2.0.8",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -40,7 +45,11 @@
   },
   "postcss": {
     "plugins": {
-      "autoprefixer": {}
+      "autoprefixer": {},
+      "postcss-px2rem": {
+        "remUnit": 50,
+        "baseDpr": 2
+      }
     }
   },
   "browserslist": [
