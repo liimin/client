@@ -102,6 +102,8 @@ export default {
   &-body{
     height: 80%;
     background-color: #fff;
+    overflow: hidden;
+    position: relative;
   }
   &-header{
     height: 20%;

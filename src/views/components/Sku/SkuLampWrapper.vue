@@ -1,213 +1,146 @@
 <template>
-<div class="seats">
-  <!-- <swiper :options="swiperOptionh" class="swiper-box">
-    <swiper-slide class="swiper-item" v-for="(item,index) in options" :key="index+''"> -->
-    <page :currentPage="currentPage" v-for="(item,index) in options" :key="index+''" :options="item">
-      <ul class="animate">
-       <!-- <swiper :options="swiperOptionv">
-            <swiper-slide v-for="(itm,idx) in curLamps" :key="idx+''"> -->
-              <sku-lamp  :text="itm.text" :src="itm.src" v-for="(itm,idx) in curLamps" :key="idx+''" />
-               <!-- </swiper-slide>
-            <div class="swiper-pagination swiper-pagination-v" slot="pagination"></div>
-          </swiper> -->
-      </ul>
-    </page>
-  <!-- </swiper> -->
-    <!-- <page :currentPage="currentPage">
-      <h1 class="text-center">二层</h1>
-      <section class="animate move-left">
-        二层
-      </section>
-    </page> -->
-    <page-controller :pageNum="pageNum" :currentPage="currentPage" @changePage="changePage" :option="controllerOption"></page-controller>
-   <!-- <pagination-control :settings="settings"  @callMethod ="changePage" /> -->
+  <div class="seats" ref="fullpage" id="scrollBody">
+    <div  v-for="(item,index) in lampGroup" :key="index+''" class="anchor">
+          <sku-lamp  :text="itm.text" :src="itm.src" v-for="(itm,idx) in item" :key="idx+''" />
+    </div>
+    <page-controller :pageNum="pageNum" :currentPage="currentPage" @changePage="jump" :option="controllerOption"></page-controller>
   </div>
 </template>
 
 <script>
-// 页面进出动画
-function afterEnterAnimate($child) {
-  $child.$el.querySelector('.animate').classList.remove('move-left', 'move-right');
-}
-function beforeLeaveAnimate($child) {
-  let moveType = Math.random() > 0.5 ? 'move-left' : 'move-right';
-  $child.$el.querySelector('.animate').classList.add(moveType);
-}
-
-import {Page,PageController} from "@/components";
-import { PaginationControl, PaginationPage } from 'vue-smart-pagination'
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import SkuLamp from "./SkuLamp";
-import Vue from "vue";
+import { PageController } from "@/components";
 export default {
-  name:'sku-lamp-wrapper',
-  props:{
-    nHeight:Number,
-    lampGroup: Array,
+  name: "sku-lamp-wrapper",
+  props: {
+    lampGroup: Array
   },
-   components: {
-    Page, 
-    PaginationControl,
-    PaginationPage,
-    swiper,
-    swiperSlide,
-    PageController,
-    SkuLamp
+  components: {
+    SkuLamp,
+    PageController
   },
- data() {
+  data() {
     return {
-      components:[],
       currentPage: 1,
-      options: [],
-      swiperOptionv: {
-          slidesPerView: 4,
-          slidesPerColumn: 4,
-          spaceBetween: 2,
-          pagination: {
-           el: '.swiper-pagination-v',
-            clickable: true
-          }
-      },
-      swiperOptionh: {
-          direction: 'vertical',
-          slidesPerView: 1,
-          spaceBetween: 30,
-          mousewheel: true,
-          pagination: {
-            el: '.swiper-pagination-h',
-            clickable: true
-          }
-        },
+      pageNum: 20,
+      arrAnchors:[],
       controllerOption: {
         arrowsType: false,
         navbar: true,
         highlight: true,
         loop: true
       }
-    }
+    };
   },
   computed: {
-    // 总page数
-    pageNum() {
-      return this.options.length;
-    },
-    settings: function () {
-      return {
-        arrayData: this.options
-      }
-    },
-    curLamps(){
+      curLamps(){
       return this.lampGroup[this.currentPage]
     }
   },
   methods: {
-    getOptions(index){
-     return  {
-        index:index+1,
-        background: 'rgba(229, 199, 46, 1)',
-        color: '#fff',
-        isCenter: true,
-        afterEnter: afterEnterAnimate,
-        beforeLeave: beforeLeaveAnimate
-      }
-    },
     changePage(index) {
-      let $childBefore=this.$children[this.currentPage-1]
-      let leaveFunction = $childBefore.options.beforeLeave;
-      typeof leaveFunction === 'function' && leaveFunction.call(this, $childBefore);
-      // change page
-      this.currentPage = index;
-      // afterEnter Hook
-      let $childNext=this.$children[index - 1]
-      // let enterFunction = $childNext.options.afterEnter;
-      //  
-      this.$nextTick(function() {
-        $childNext.$el.querySelector('.animate').classList.remove('move-left', 'move-right');
-      //   // typeof enterFunction === 'function' && enterFunction.call(this, $childNext);
-      })
+      fullpage_api.moveTo(`page${index}`);
+    },
+    jump(index) {
+      console.log(index);
+      let jump= document.querySelectorAll(".anchor"+index);
+      console.log(jump,jump.offsetTop);
+      // document.body.scrollTop=this.arrAnchors[index]
+document.getElementById('scrollBody').scrollTop = this.arrAnchors[index-1]//jump[0].firstChild.offsetTop
+this.currentPage=index;
+function scrollToTop(scrollDuration) {
+    var cosParameter = window.scrollY / 2,
+        scrollCount = 0,
+        oldTimestamp = performance.now();
+    function step (newTimestamp) {
+        scrollCount += Math.PI / (scrollDuration / (newTimestamp - oldTimestamp));
+        if (scrollCount >= Math.PI) window.scrollTo(0, 0);
+        if (window.scrollY === 0) return;
+        document.getElementById('scrollBody').scrollTop =Math.round(cosParameter + cosParameter * Math.cos(scrollCount));
+        oldTimestamp = newTimestamp;
+        window.requestAnimationFrame(step);
     }
-  },
-  beforeMount(){
-    for (let index = 1; index <=this.lampGroup.length; index++) {
-      this.options.push({
-        index,
-        background: 'rgba(229, 199, 46, 1)',
-        color: '#fff',
-        isCenter: true,
-        afterEnter: afterEnterAnimate,
-        beforeLeave: beforeLeaveAnimate
-      })
-      // Vue.component('aaa', {
-      //   render:function(createElement, context) {
-      //       return createElement(
-      //           swiper,
-      //           {
-      //             props:{
-      //               options:this.swiperOptionv
-      //             }
-      //           }[
-      //             createElement(swiperSlide)
-      //           ]
-      //       )
-      //     },
-      //   })
-        // <swiper :options="swiperOptionv">
-        //     <swiper-slide v-for="(itm,idx) in curLamps" :key="idx+''">
-        //       <sku-lamp  :text="itm.text" :src="itm.src" />
-        //       </swiper-slide>
-        //     <div class="swiper-pagination swiper-pagination-v" slot="pagination"></div>
-        //  </swiper>
+    window.requestAnimationFrame(step);
+}
+      // // 用 class="d_jump" 添加锚点
+      // let jump = document.querySelectorAll(".anchor");
+      // let total = jump[index].offsetTop;
+      // let distance =
+      //   document.documentElement.scrollTop ||
+      //   window.pageYOffset ||
+      //   document.body.scrollTop;
+      // // 平滑滚动，时长500ms，每10ms一跳，共50跳
+      // let step = total / 50;
+      // console.log(total,distance,step);
+      // if (total > distance) {
+      //   smoothDown();
+      // } else {
+      //   let newTotal = distance - total;
+      //   step = newTotal / 50;
+      //   smoothUp();
+      // }
+      // function smoothDown() {
+      //   if (distance < total) {
+      //     distance += step;
+      //     document.body.scrollTop = distance;
+      //     document.documentElement.scrollTop = distance;
+      //     window.pageYOffset = distance;
+      //     setTimeout(smoothDown, 10);
+      //   } else {
+      //     document.body.scrollTop = total;
+      //     document.documentElement.scrollTop = total;
+      //     window.pageYOffset = total;
+      //   }
+      // }
+      // function smoothUp() {
+      //   if (distance > total) {
+      //     distance -= step;
+      //     document.body.scrollTop = distance;
+      //     document.documentElement.scrollTop = distance;
+      //     window.pageYOffset = distance;
+      //     setTimeout(smoothUp, 10);
+      //   } else {
+      //     document.body.scrollTop = total;
+      //     document.documentElement.scrollTop = total;
+      //     window.pageYOffset = total;
+      //   }
+      // }
+    },
+    onScroll() {
+      let scrolled =
+        document.documentElement.scrollTop ||
+        window.pageYOffset ||
+        document.body.scrollTop; // 586、1063分别为第二个和第三个锚点对应的距离
+      if (scrolled >= 1063) {
+        this.steps.active = 2;
+      } else if (scrolled < 1063 && scrolled >= 586) {
+        this.steps.active = 1;
+      } else {
+        this.steps.active = 0;
+      }
     }
-
-  },
-  render (h) {
-    // return <swiper :options="swiperOptionv" />
   },
   mounted() {
-    // this.$children.forEach((child, index) => {
-    //   console.log(child,index);
-    //   // 动态设置各个page内的options
-    //   if (child.option === null) {
-    //     let childOption = this.options[index];
-
-    //     this.$set(childOption, 'index', index + 1);
-    //     child.option = childOption;
-    //   }
-    // });
+    this.$nextTick(function() {
+      let jump = document.querySelectorAll(".anchor");
+      let arrAnchors=this.arrAnchors
+      for(let i=0 ; i<jump.length;i++){
+       jump[i].firstChild && arrAnchors.push((jump[i].firstChild.offsetTop))
+        console.log(this.arrAnchors);
+      }
+      
+      // window.addEventListener("scroll", this.onScroll);
+    });
+    // fullpage_api.moveTo('page2');
   }
 };
 </script>
 
 <style lang="less" scoped>
 .seats {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height:400px;
+  overflow-y: scroll
+  // display: -webkit-box;
 }
-  .swiper-box {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-  }
-  .swiper-item {
-    height: 100%;
-    text-align: center;
-    font-size: 18px ;
-    background: #fff;
-    /* Center slide text vertically */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-  }
 </style>

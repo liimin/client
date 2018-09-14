@@ -12,7 +12,7 @@
                 <van-button 
                     type="primary" 
                     bottom-action 
-                    :text="rightText || '我要点灯'" 
+                    :text="rightText || '我要供灯'" 
                     @click="handleRightClick" />
             </van-col>
         </van-row>

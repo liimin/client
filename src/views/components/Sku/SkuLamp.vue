@@ -22,6 +22,7 @@ export default {
   & p {
     line-height: 0.36rem;
     padding-bottom: 0.14rem;
+        text-align: center;
   }
   &.row-item-big {
     width: 2.3rem;

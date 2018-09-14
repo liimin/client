@@ -1,7 +1,8 @@
 <template>
     <section 
         class="page" 
-        v-if="options" 
+        v-if="options"
+        ref="page" 
         :style="{background: options.background,color: options.color||'#fff'}" 
         :class="{'page-before': options.index < currentPage,
                 'page-after': options.index > currentPage,
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-
+import BScroll from 'better-scroll'
 export default {
   name: "page",
   props: {
@@ -24,14 +25,22 @@ export default {
   data() {
     return {
       option:null
-    };
+    }
+  },
+  mounted(){
+    this.$nextTick(()=>{
+    let scroll = new BScroll(this.$refs.page,{
+          scrollX: true,
+          click: false
+      })
+    })
   }
 };
 </script>
 
 <style>
 .page {
-  overflow: hidden;
+  /* overflow-x: scroll; */
   position: absolute;
   top: 0;
   bottom: 0;
@@ -39,6 +48,8 @@ export default {
   right: 0;
   transition: all 0.5s ease 0s;
   z-index: 1;
+  /* overflow-y: hidden; */
+  overflow: hidden;
 }
 .page-before {
   z-index: 0;

@@ -1,7 +1,7 @@
 <template>
   <div class="temple-detail">
     <van-nav-bar title="标题" left-text="返回" left-arrow>
-      <van-icon name="search" slot="right" />
+      <!-- <van-icon name="search" slot="right" /> -->
     </van-nav-bar>
     <div class="temple-detail-container">
       <div class="temple-detail-container-swipe">
